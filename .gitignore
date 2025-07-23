@@ -1,0 +1,10 @@
+/.metadata/
+/Eco/target/
+
+/Servers/
+/Eco/.settings/
+/Eco/.classpath
+/Eco/.project
+/Eco/.sppringBeans
+/Eco/src/main/resources/application.properties
+/Eco/src/test/

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.mapper.UserMapper">
+	<!-- SELECT -->
+	<select id="getUserSelect" resultType="com.eco.domain.UserVO">
+		<![CDATA[
+		SELECT * FROM t_user
+		WHERE use_yn = 'Y' AND user_id = #{user_id} and user_pw = #{user_pw} and user_type = "B";
+		]]>
+	</select>
+
+	<select id="findByUserId" resultType="com.eco.domain.UserVO">
+		<![CDATA[
+		SELECT * FROM t_user
+		WHERE user_id = #{user_id} and user_type = #{user_type};
+		]]>
+	</select>
+	<!-- 간편요금조회에서 사용자 검색 -->
+	<select id="findByUserCdUserNm" resultType="com.eco.domain.UserVO">
+		<![CDATA[
+		SELECT * from t_user WHERE user_cd = #{user_cd} AND user_nm = #{user_nm}
+		]]>
+	</select>
+	
+	<!-- 회원가입시 이메일 인증을위한 이메일 중복검사 -->
+	<select id="existsByEmail" resultType="com.eco.domain.UserVO" parameterType="string">
+		<![CDATA[
+		 SELECT * FROM t_user WHERE user_email = #{user_email}
+		]]>
+	</select>
+	
+	<!-- INSERT -->
+	<insert id="userInsert">
+		<![CDATA[
+		INSERT INTO t_user(user_id, user_pw, user_nm, user_type, user_local, user_email) VALUES(#{user_id}, #{user_pw}, #{user_nm}, #{user_type}, #{user_local}, #{user_email})
+		]]>
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 회원정보수정 -->
+	<update id="userUpdate">
+		<![CDATA[
+		UPDATE t_user SET user_id=#{user_id}, user_pw=#{user_pw}, user_nm=#{user_nm}, user_local=#{user_local} WHERE user_cd=#{user_cd}
+		]]>
+	</update>
+	<!-- 회원정보 수정 후 세션 반영용 -->
+	<select id="findByUserCD" resultType="com.eco.domain.UserVO">
+		<![CDATA[
+		SELECT * from t_user WHERE user_cd = #{user_cd}
+		]]>
+	</select>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="userDelete">
+		<![CDATA[
+		UPDATE t_user SET use_yn='N' WHERE user_cd=#{user_cd}
+		]]>
+	</update>
+	<!-- DELETE -->
+</mapper>

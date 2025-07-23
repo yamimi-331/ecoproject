@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+/* 로고 아이콘 */
+/* .icon{width : 50%; margin-left: 10px;}
+ */
+/* 사용자정보, 로그아웃 */
+.head-box {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	box-sizing: border-box;
+	margin-top: 10px;
+	font-size: 14px;
+	/* border-bottom: 3px solid #008000; */
+}
+.logout:hover{text-decoration: underline;}
+
+/* 사용량, 요금 선택 */
+.select-box{
+	display: flex; 
+	justify-content: center; 
+	width: 100%; 
+	align-items: center;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.box1{
+	width: 40%; 
+	line-height: 50px; 
+	display: inline-block; 
+	margin: 0; 
+	border-radius: 5px 0 0 5px;
+}
+.box2{
+	width: 40%; 
+	line-height: 50px; 
+	display: inline-block; 
+	margin: 0; 
+	border-radius: 0 5px 5px 0;
+}
+
+/* 메인 데이터 */
+.data-box{
+	display: flex;
+	justify-content: left;
+	flex-direction: column;
+	align-items: center;
+	width: 80%;
+	box-sizing: border-box;
+}
+
+/* 데이터 테이블 설정 */
+.title{width: 100%; font-weight: bold; font-size: 20px; margin-top: 50px;}
+table{border-collapse: collapse; margin: 20px 0; width:90%}
+th{border-bottom: 3px solid #008000; border-collapse: collapse; padding: 15px;}
+td{text-align: center; padding: 10px 0;}
+caption{margin-bottom: 10px}
+tr:nth-child(odd){}
+tr:nth-child(even){background-color: #edffd8;}
+
+.table-box{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 10px 0 5px 0;
+	border: 2px solid #008000;
+	border-radius: 5px;
+}
+
+.chart-box{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: #fefefe;
+	border: 2px solid #008000;
+	border-radius: 5px;
+	margin: 5px 0;
+	padding: 10px 0;
+}
+
+/* 조회 기간 설정 */
+.form-title{width: 100%; font-weight: bold; font-size: 20px;}
+
+.form-box{
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	width: 100%;
+	text-align: left;
+	margin: 10px 0;
+	gap: 10px;
+}
+
+.form-box-2{
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin: 10px 0;
+}
+
+.inner-form-box{
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	align-content: center;
+	gap: 10px;
+}
+
+.inner-form-box-2{
+	display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-content: center;
+    gap: 10px;
+    height: 38px;
+    align-items: center;
+}
+
+.table-box-2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 10px 0 5px 0;
+	padding: 5px;
+	border: 2px solid #008000;
+	gap: 8px;
+	border-radius: 5px;
+}
+
+

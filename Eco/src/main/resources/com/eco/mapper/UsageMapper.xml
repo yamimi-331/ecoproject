@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.mapper.UsageMapper">
+	<!-- 이번 달 가스 사용량 합 -->
+	<select id="getGasUsage" resultType="com.eco.domain.UserTypeChargeDTO">
+		SELECT u.user_id, SUM(gu.gas_usage) AS gasUsageAmount
+		FROM t_gas_usage gu
+		JOIN t_user u ON u.user_cd = gu.user_cd
+		JOIN t_gas g ON gu.gas_cd = g.gas_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND YEAR(gas_time) = YEAR(CURDATE()) AND MONTH(gas_time) = MONTH(CURDATE())
+		GROUP BY u.user_cd
+	</select>
+	<!-- 이번 달 전기 사용량 합 -->
+	<select id="getElecUsage" resultType="com.eco.domain.UserTypeChargeDTO">
+		SELECT u.user_id, SUM(eu.elec_usage) AS elecUsageAmount
+		FROM t_elec_usage eu
+		JOIN t_user u ON u.user_cd = eu.user_cd
+		JOIN t_elec e ON eu.elec_cd = e.elec_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND YEAR(elec_time) = YEAR(CURDATE()) AND MONTH(elec_time) = MONTH(CURDATE())
+		GROUP BY u.user_cd
+	</select>
+	
+	<!-- 디폴트값 가스 상세 내역 -->
+	<select id="getGasUsageDetail" resultType="com.eco.domain.UserTypeChargeDTO">
+		<![CDATA[
+		SELECT u.user_cd AS userCD, user_nm AS userNM, type AS usageType, charge AS unitCharge, gas_usage, gas_time 
+		FROM t_gas_usage gu
+		JOIN t_user u ON u.user_cd = gu.user_cd
+		JOIN t_gas g ON gu.gas_cd = g.gas_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND gas_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 3 MONTH), '%Y-%m-01')
+  		AND gas_time <  DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+  		ORDER BY gas_time
+		]]>
+	</select>
+	<!-- 디폴트값 전기 상세 내역 -->
+	<select id="getElecUsageDetail" resultType="com.eco.domain.UserTypeChargeDTO">
+      <![CDATA[
+		SELECT u.user_cd AS userCD, user_nm AS userNM, type AS usageType, charge AS unitCharge, elec_usage, elec_time 
+		FROM t_elec_usage eu
+		JOIN t_user u ON u.user_cd = eu.user_cd
+		JOIN t_elec e ON eu.elec_cd = e.elec_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND elec_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 3 MONTH), '%Y-%m-01')
+  		AND elec_time <  DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+		ORDER BY elec_time
+		]]>
+	</select>
+	
+	<!-- 지정한 기간의 가스 상세 내역 -->
+	<select id="getGasUsagePeriod" resultType="com.eco.domain.UserTypeChargeDTO">
+		<![CDATA[
+		SELECT u.user_cd AS userCD, user_nm AS userNM, type AS usageType, charge AS unitCharge, gas_usage, gas_time 
+		FROM t_gas_usage gu
+		JOIN t_user u ON u.user_cd = gu.user_cd
+		JOIN t_gas g ON gu.gas_cd = g.gas_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND gas_time BETWEEN #{start_date} and #{end_date}
+		]]>
+	</select>
+	<!-- 지정한 기간의 전기 상세 내역 -->
+	<select id="getElecUsagePeriod" resultType="com.eco.domain.UserTypeChargeDTO">
+      <![CDATA[
+		SELECT u.user_cd AS userCD, user_nm AS userNM, type AS usageType, charge AS unitCharge, elec_usage, elec_time 
+		FROM t_elec_usage eu
+		JOIN t_user u ON u.user_cd = eu.user_cd
+		JOIN t_elec e ON eu.elec_cd = e.elec_cd
+		WHERE u.use_yn = 'Y' AND u.user_cd=(select user_cd from t_user where user_id = #{user_id})
+		AND elec_time BETWEEN #{start_date} and #{end_date}
+		]]>
+	</select>
+	
+	<!-- 지역별 가장 최근 달의 에너지 사용량 합계 -->
+	<select id="getUsageLocalAmount" resultType="com.eco.domain.UserTypeChargeDTO">
+	 	<![CDATA[
+		select user_local, round(sum(gu.gas_usage)) AS gasUsageAmount, round(sum(eu.elec_usage)) AS elecUsageAmount
+		FROM t_user u
+		JOIN t_gas_usage gu ON u.user_cd = gu.user_cd
+		JOIN t_elec_usage eu ON u.user_cd = eu.user_cd
+		WHERE YEAR(gas_time) = YEAR(CURDATE()) AND MONTH(gas_time) = MONTH(CURDATE())
+		AND YEAR(elec_time) = YEAR(CURDATE()) AND MONTH(elec_time) = MONTH(CURDATE())
+		group by user_local
+		]]>
+	</select>
+	
+	<!-- 사용자의 월별 사용량 합계 -->
+	<select id="getGasUsageMonth" resultType="com.eco.domain.UserTypeChargeDTO">
+		<![CDATA[
+		SELECT MONTH(gu.gas_time) AS month, YEAR(gu.gas_time) AS year, SUM(gu.gas_usage) AS gasUsageAmount
+		FROM t_user u
+		JOIN t_gas_usage gu ON u.user_cd = gu.user_cd
+		JOIN t_gas g ON gu.gas_cd = g.gas_cd
+		WHERE u.use_yn = 'Y' AND user_id=#{user_id}
+		GROUP BY month, year
+		ORDER BY year, month
+		]]>
+	</select>
+	<select id="getElecUsageMonth" resultType="com.eco.domain.UserTypeChargeDTO">
+		<![CDATA[
+		SELECT MONTH(eu.elec_time) AS month, YEAR(eu.elec_time) AS year, SUM(eu.elec_usage) AS elecUsageAmount
+		FROM t_user u
+		JOIN t_elec_usage eu ON u.user_cd = eu.user_cd
+		JOIN t_elec e ON eu.elec_cd = e.elec_cd
+		WHERE u.use_yn = 'Y' AND user_id=#{user_id}
+		GROUP BY month, year
+		ORDER BY year, month
+		]]>
+	</select>
+	
+	
+	<!-- INSERT -->
+	<!-- 사용자의 가스 사용량 등록 -->
+	<insert id="insertGasUsage" parameterType="com.eco.domain.GasUsageVO">
+    	<![CDATA[
+    	INSERT INTO T_GAS_USAGE (user_cd, gas_cd, gas_usage, gas_time)
+    	VALUES (#{user_cd}, #{gas_cd}, #{gas_usage}, #{gas_time})
+    	]]>
+  	</insert>
+  	
+	<!-- 사용자의 전기 사용량 등록 -->
+	  <insert id="insertElecUsage" parameterType="com.eco.domain.ElecUsageVO">
+	    INSERT INTO T_ELEC_USAGE (user_cd, elec_cd, elec_usage, elec_time)
+	    VALUES (#{user_cd}, #{elec_cd}, #{elec_usage}, #{elec_time})
+	  </insert>
+
+	<select id="getAllGasTypes" resultType="com.eco.domain.GasVO">
+		SELECT * FROM T_GAS
+	</select>
+	
+	<select id="getAllElecTypes" resultType="com.eco.domain.ElecVO">
+	    SELECT * FROM T_ELEC
+	</select>
+
+	<!-- UPDATE -->
+	<!-- DELETE -->
+</mapper>
