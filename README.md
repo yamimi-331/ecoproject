@@ -8,7 +8,7 @@
 ## **🛠️ 개발 환경 및 기술 스택**
 
 * **개발 기간**: 2025년 5월 29일 \~ 2025년 6월 12일  
-* **개발자**: 신혁주(팀장), 팀원 2명  
+* **개발자**: 신혁주(팀장), 박정현, 팀원 
 * **프레임워크**: Spring Framework  
 * **IDE**: STS3 (Spring Tool Suite 3\)  
 * **서버**: Apache Tomcat 9  
@@ -72,3 +72,9 @@ src/main/java
 ![비회원 조회 화면](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/nologin.png)
 
 [데모 영상 다운로드](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/showDemo.mp4)
+
+
+https://github.com/user-attachments/assets/9dac6487-5632-417b-987f-63282089ccbc
+
+
+
