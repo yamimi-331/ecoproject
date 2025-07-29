@@ -44,7 +44,7 @@ src/main/java
 
 1. **프로젝트 클론**:  
    ```
-    git clone https://github.com/tmxose/EcoProject.git 
+    git clone https://github.com/yamimi-331/ecoproject.git
     ```
 
 2. **데이터베이스 설정**:  
