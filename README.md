@@ -60,19 +60,7 @@ src/main/java
    * Tomcat 서버를 시작하여 웹 애플리케이션을 실행합니다.
   
 
-## **🚀 프로젝트 시연 자료**
-
-![메인 화면](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/mainpage.png)
-
-![냉난방 사용량/요금 조회 화면](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/nomalSelect.png)
-
-![관리자 화면](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/admin.png)
-![관리자 화면 조회 결과](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/adminSelect.png)
-
-![비회원 조회 화면](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/nologin.png)
-
-[데모 영상 다운로드](https://raw.githubusercontent.com/tmxose/EcoProject/master/Eco/src/main/resources/showFile/showDemo.mp4)
-
+## **🚀 프로젝트 시연 영상**
 
 https://github.com/user-attachments/assets/9dac6487-5632-417b-987f-63282089ccbc
 
